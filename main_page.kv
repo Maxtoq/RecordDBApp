@@ -1,9 +1,16 @@
 #:kivy 2.0.0
-Screen:
+MDScreen:
     ScrollView:
+        md_bg_color: app.theme_cls.bg_normal
         MDList:
             id: track_container
 
-    MDFloatingActionButton:
-        id: add_button
-        pos_hint: {"right": .9}
+    MDFloatingActionButtonSpeedDial:
+        data: app.data
+        callback: app.callback
+        hint_animation: True
+        bg_color_root_button: "ffc600"
+        color_icon_root_button: [256,256,256,1]
+        bg_hint_color: "ffc600"
+        color_icon_stack_button: [256,256,256,1]
+        bg_color_stack_button: "ffc600"
