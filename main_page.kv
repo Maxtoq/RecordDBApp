@@ -1,16 +1,67 @@
 #:kivy 2.0.0
-MDScreen:
-    ScrollView:
-        md_bg_color: app.theme_cls.bg_normal
-        MDList:
-            id: track_container
+<MainPage>:
+    name: "main_page"
+    MDBoxLayout:
+        orientation: "vertical"
+        MDToolbar:
+            title: "My record DB"
+            specific_text_color: 0.01, 0.01, 0.01, 1
+            md_bg_color: 1, 0.77, 0, 1
+        ScrollView:
+            md_bg_color: app.theme_cls.bg_normal
+            MDList:
+                id: track_container
 
     MDFloatingActionButtonSpeedDial:
         data: app.data
         callback: app.callback
         hint_animation: True
-        bg_color_root_button: "ffc600"
-        color_icon_root_button: [256,256,256,1]
-        bg_hint_color: "ffc600"
-        color_icon_stack_button: [256,256,256,1]
-        bg_color_stack_button: "ffc600"
+        bg_color_root_button: 1, 0.77, 0, 1
+        color_icon_root_button: 0.01, 0.01, 0.01, 1
+        bg_hint_color: 1, 0.77, 0, 1
+        color_icon_stack_button: 0.01, 0.01, 0.01, 1
+        bg_color_stack_button: 1, 0.77, 0, 1
+
+<AddTrackPage>:
+    name: "add_track_page"
+    MDBoxLayout:
+        orientation: "vertical"
+        MDToolbar:
+            title: "Add a track"
+            left_action_items: [["arrow-left", app.callback]]
+            specific_text_color: 0.01, 0.01, 0.01, 1
+            icon_color: 0.01, 0.01, 0.01, 1
+            md_bg_color: 1, 0.77, 0, 1
+        ScrollView:
+            MDList:
+                MDTextField:
+                    id: record_name
+                    hint_text: "Record name"
+                MDTextField:
+                    id: track_num
+                    hint_text: "Track #"
+                MDTextField:
+                    id: track_name
+                    hint_text: "Track name"
+                MDTextField:
+                    id: artist
+                    hint_text: "Artist"
+                MDTextField:
+                    id: style1
+                    hint_text: "Style 1"
+                MDTextField:
+                    id: style2
+                    hint_text: "Style 2"
+                MDTextField:
+                    id: style3
+                    hint_text: "Style 3"
+                MDTextField:
+                    id: bpm
+                    hint_text: "BPM"
+                MDRaisedButton:
+                    text: "ADD"
+                    size_hint: 1, None
+                    theme_text_color: "Custom"
+                    text_color: 0.01, 0.01, 0.01, 1
+                    md_bg_color: 1, 0.77, 0, 1
+                    on_release: app.add_track_page.add_track()
