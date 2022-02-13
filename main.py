@@ -1,4 +1,6 @@
+from datetime import datetime
 import json
+import time
 
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen, NoTransition
@@ -32,8 +34,13 @@ class RecordDB():
             print(track)
 
     def add(self, track):
-        # TODO
-        pass
+        # Set new id (actually epoch time of creation)
+        raw_time = int(time.time())
+        track["id"] = raw_time
+        # Set time of change
+        track["lastChange"] = raw_time
+        # Add track
+        self.track_list.append(track)
 
 
 class MainPage(Screen):
