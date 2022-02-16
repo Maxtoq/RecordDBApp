@@ -11,21 +11,24 @@ from kivymd.uix.dialog import MDDialog
 
 
 # TODO:
-# - Add a track
+# - Augment size of comment
 # - Remove a track
 # - Modify a track
+# - Add parameter page (set what file is used for the DB)
 # - Sort tracks by record
 # - Sort tracks by any attribute
 # - Filter tracks by any attribute
-# - 
 
 
 class RecordDB():
     def __init__(self, db_file):
-        self.track_list = self.load(db_file)
+        self.db_file = db_file
+        self.track_list = self.load()
+        for t in self.track_list:
+            t["comment"] = ''
 
-    def load(self, db_file):
-        with open(db_file) as f:
+    def load(self):
+        with open(self.db_file) as f:
             track_list = json.load(f)["tracks_db"]
         return track_list
 
@@ -41,6 +44,13 @@ class RecordDB():
         track["lastChange"] = raw_time
         # Add track
         self.track_list.append(track)
+        # Save db in file
+        self.save()
+
+    def save(self):
+        db_dict = {"tracks_db": self.track_list}
+        with open(self.db_file, "w") as f:
+            json.dump(db_dict, f)
 
 
 class MainPage(Screen):
@@ -48,21 +58,21 @@ class MainPage(Screen):
     def __init__(self, db, **kwargs):
         super(MainPage, self).__init__()
         self.db = db
+        self.displayed_ids = []
         self.update_list()
 
     def update_list(self):
-        # TODO: find a way to do this without removing all items and adding them again
-        # Remove all items
-
         # Add new items
         for track in self.db.track_list:
-            style_str = ', '.join(track["style"])
-            self.ids.track_container.add_widget(
-                TwoLineListItem(
-                    text=f"{track['record']} - {track['num']}. {track['track']}",
-                    secondary_text=f"{track['artist']}, {style_str}, BPM={track['bpm']}"
+            if track["id"] not in self.displayed_ids:
+                style_str = ', '.join(track["style"])
+                self.ids.track_container.add_widget(
+                    TwoLineListItem(
+                        text=f"{track['record']} - {track['num']}. {track['track']}",
+                        secondary_text=f"{track['artist']}, {style_str}, BPM={track['bpm']}"
+                    )
                 )
-            )
+                self.displayed_ids.append(track["id"])
 
         # Sort
 
@@ -94,7 +104,8 @@ class AddTrackPage(Screen):
             "track": self.ids.track_name.text,
             "artist": self.ids.artist.text,
             "style": style_list,
-            "bpm": self.ids.bpm.text
+            "bpm": self.ids.bpm.text,
+            "comment": self.ids.comment.text
         }
         # Create the string to display in the confirm dialog
         style_str = ', '.join(new_track["style"])
