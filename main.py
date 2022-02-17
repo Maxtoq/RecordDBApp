@@ -11,13 +11,15 @@ from kivymd.uix.dialog import MDDialog
 
 
 # TODO:
-# - Augment size of comment
+# - Deploy on android
+# ----- MVP ----------
 # - Remove a track
 # - Modify a track
 # - Add parameter page (set what file is used for the DB)
 # - Sort tracks by record
 # - Sort tracks by any attribute
 # - Filter tracks by any attribute
+# - List of tracks
 
 
 class RecordDB():
@@ -109,9 +111,10 @@ class AddTrackPage(Screen):
         }
         # Create the string to display in the confirm dialog
         style_str = ', '.join(new_track["style"])
-        track_str = "Record: {}\nTrack #: {}\nTrack name:{}\nArtist: {}\nStyle: {}\nBPM: {}".format(
+        track_str = "Record: {}\nTrack #: {}\nTrack name:{}\nArtist: {}\nStyle: {}\nBPM: {}\nComment: {}".format(
             new_track["record"], new_track["num"], new_track["track"], 
-            new_track["artist"], style_str, new_track["bpm"]
+            new_track["artist"], style_str, new_track["bpm"], 
+            new_track["comment"]
         )
         # Create and open dialog
         self.confirm_dialog = MDDialog(
