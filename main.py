@@ -1,4 +1,3 @@
-from datetime import datetime
 import json
 import time
 
@@ -8,6 +7,7 @@ from kivymd.app import MDApp
 from kivymd.uix.list import TwoLineListItem
 from kivymd.uix.button import MDFlatButton
 from kivymd.uix.dialog import MDDialog
+from kivy.utils import platform
 
 
 # TODO:
@@ -189,4 +189,10 @@ class RecordDBApp(MDApp):
         self.sm.current = "main_page"
 
 
-RecordDBApp().run()
+if __name__ == "__main__":
+    # add the following just under the imports
+    if platform == "android":
+        from android.permissions import request_permissions, Permission
+        request_permissions([Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE])
+
+    RecordDBApp().run()
