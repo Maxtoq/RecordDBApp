@@ -1,10 +1,10 @@
 [app]
 
 # (str) Title of your application
-title = My Application
+title = RecordsDBApp
 
 # (str) Package name
-package.name = myapp
+package.name = recordsdbapp
 
 # (str) Package domain (needed for android/ios packaging)
 package.domain = org.test
@@ -297,7 +297,8 @@ android.allow_backup = True
 #p4a.fork = kivy
 
 # (str) python-for-android branch to use, defaults to master
-#p4a.branch = master
+# p4a.branch = master
+p4a.branch = develop
 
 # (str) python-for-android specific commit to use, defaults to HEAD, must be within p4a.branch
 #p4a.commit = HEAD
