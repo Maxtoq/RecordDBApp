@@ -37,7 +37,7 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3,kivy
+requirements = python3,kivy,android
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -94,6 +94,7 @@ fullscreen = 0
 
 # (list) Permissions
 #android.permissions = INTERNET
+android.permissions = WRITE_EXTERNAL_STORAGE
 
 # (list) features (adds uses-feature -tags to manifest)
 #android.features = android.hardware.usb.host
